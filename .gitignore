@@ -7,3 +7,9 @@ venv/
 
 __pycache__/
 *.py[cod]
+
+# celery beat schedule file
+celerybeat-schedule
+celerybeat-schedule.dat
+celerybeat-schedule.bak
+celerybeat-schedule.dir

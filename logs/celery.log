@@ -1,0 +1,16 @@
+[2023-08-17 16:52:19,190: WARNING/MainProcess] /home/shubhamjain31/pyramid_crud/venv/lib/python3.10/site-packages/celery/worker/consumer/consumer.py:498: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2023-08-17 16:52:19,197: INFO/MainProcess] Connected to redis://localhost:6379//
+[2023-08-17 16:52:19,198: WARNING/MainProcess] /home/shubhamjain31/pyramid_crud/venv/lib/python3.10/site-packages/celery/worker/consumer/consumer.py:498: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2023-08-17 16:52:19,200: INFO/MainProcess] mingle: searching for neighbors
+[2023-08-17 16:52:20,206: INFO/MainProcess] mingle: all alone
+[2023-08-17 16:52:20,215: INFO/MainProcess] celery@LeadsConnect ready.
