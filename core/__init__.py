@@ -5,7 +5,7 @@ from sqlalchemy import engine_from_config
 from sqlalchemy.orm import sessionmaker
 from decouple import config
 
-import zope.sqlalchemy, logging.config
+import zope.sqlalchemy
 
 from .database.security import SecurityPolicy
 from celery_app import celery
@@ -53,9 +53,6 @@ def main(global_config, **settings):
 
     # Set Celery instance in the Pyramid registry
     configuration.registry.celery = celery
-
-    # Configure logging using a file-based configuration
-    logging.config.fileConfig(global_config['__file__'], disable_existing_loggers=False)
 
     configuration.scan()
 
