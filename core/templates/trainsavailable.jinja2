@@ -1,0 +1,103 @@
+{% extends "layout.jinja2" %}
+
+{% block content %}
+
+
+<div style="margin-top: 50px;">
+    <center><h2> Trains </h2></center>
+
+    <table class="table table-striped" style="width: 90%;margin-left:75px ;margin-top: 30px;">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Sr No.</th>
+                <th scope="col">Train Number</th>
+                <th scope="col">Train Name</th>
+                <th scope="col">Source</th>
+                <th scope="col">Destination</th>
+                <th scope="col">Time</th>
+                <th scope="col">Price</th>
+                <th scope="col">Seats Available</th>
+                <th scope="col">Booking</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for p in trains%}
+            
+            <tr>
+                <td>{{ loop.index }}</a></td>
+                <td>{{p.train_number}}</a></td>
+                <td>{{p.train_name|title}}</td>
+                <td>{{p.source|title}}</td>
+                <td>{{p.destination|title}}</td>
+                <td>{{p.time|time_format}}</td>
+                <td>{{p.price}}</td>
+                <td>{{p.seats_available}}</td>
+                <td><button id="rzp-button1" class="btn btn-info btn-sm" onclick="return razorpay_btn({{ loop.index }}, {{p.price}}, {{ p.slug }})">Book Ticket</button></td>
+            </tr>
+            
+            {% endfor %}
+        </tbody>
+    </table>
+</div>       
+
+{% block js %}
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+const csrf_token = "{{ get_csrf_token() }}";
+
+var slug = 0;
+var price = 50000;
+function razorpay_btn(val, price_, slug_){
+    price   = (parseFloat(price_)*100).toString();
+    slug    = slug_;
+    rzp1.open();
+    return false;
+}
+var options = {
+    "key": "{{key_id}}", 
+    "amount": price, 
+    "currency": "INR",
+    "name": "RMS",
+    "description": "Test Transaction",
+    "image": "",
+    "handler": function (response){
+        $.ajax({
+            url : "{{request.route_url('booking')}}",
+            type : "POST",
+            data : { slug : slug , csrf_token : csrf_token , razorpay_payment_id: response.razorpay_payment_id, price: price},
+            success: function(data)
+            {
+                if(data["status"] === 'captured'){
+                    window.location.url = '';
+                }
+            }
+            });
+        //alert(response.razorpay_payment_id);
+        //alert(response.razorpay_signature)
+    },
+    "prefill": {
+        "name": "RMS Payment",
+        "email": "rms.admin@email.com",
+        "contact": {{phone_number}}
+    },
+    "notes": {
+        "address": "Razorpay Corporate Office"
+    },
+    "theme": {
+        "color": "#3399cc"
+    }
+};
+var rzp1 = new Razorpay(options);
+rzp1.on('payment.failed', function (response){
+        //alert(response.error.code);
+        //alert(response.error.description);
+        //alert(response.error.source);
+        //alert(response.error.step);
+        //alert(response.error.reason);
+        //alert(response.error.metadata.order_id);
+        //alert(response.error.metadata.payment_id);
+});
+</script>
+{% endblock js %}
+
+{% endblock %}

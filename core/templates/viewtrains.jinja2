@@ -1,0 +1,64 @@
+{% extends "layout.jinja2" %}
+{% from "jinja_helpers.jinja2" import render_field %}
+
+{% block content %}
+
+        <div style="margin-top: 50px;">
+            <center><h2> Trains </h2></center>
+
+            <form method="post" action={{ u }}>
+                <input type="hidden" name="csrf_token" value="{{ get_csrf_token() }}">
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <input type="text" class="form-control w-50 mx-auto" name="search" placeholder="Search Train (i.e, Train Number/Train Name)">
+                    </div>
+                    <div class="col-6">
+                        <button class="btn btn-success btn-sm">Search</button>
+                    </div>
+
+                </div>
+            </form>
+
+            <table class="table table-striped" style="width: 90%;margin-left:75px ;margin-top: 30px;">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Train Number</th>
+                        <th scope="col">Train Name</th>
+                        <th scope="col">Source</th>
+                        <th scope="col">Destination</th>
+                        <th scope="col">Time</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Duration</th>
+                        <th scope="col">Seats Available</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if all_trains|length == 0 %}
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>No Data</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    {% endif%}
+
+                    {%for p in all_trains%}
+                    
+                    <tr>
+                        <td><a href="{{request.route_url('train', slug=p.slug)}}">{{p.train_number}}</a></td>
+                        <td>{{p.train_name|title}}</td>
+                        <td>{{p.source|title}}</td>
+                        <td>{{p.destination|title}}</td>
+                        <td>{{p.time|time_format}}</td>
+                        <td>₹ {{p.price}}</td>
+                        <td>{{p.duration}}</td>
+                        <td>{{p.seats_available}}</td>
+                    </tr>
+                    
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+{% endblock %}

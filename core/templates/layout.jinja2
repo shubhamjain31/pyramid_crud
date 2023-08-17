@@ -1,0 +1,29 @@
+{% extends "pyramid_bootstrap:/templates/bs4/layout.jinja2" %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block title %}RMS: {{ page_title }}{% endblock title %}
+</head>
+<body>
+
+<div class="navbar navbar-inverse">
+    <div class="container">
+        {% include "templates/navbar.jinja2" %}
+    </div>
+</div>
+
+<div class="container">
+
+    {% block content %}
+
+    <script>
+        {% block js %}{% endblock js %}
+    </script>
+    
+    {% endblock content %}
+
+</div>
+
+</body>
+</html>

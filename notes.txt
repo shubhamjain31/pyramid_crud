@@ -1,0 +1,27 @@
+1) Starter project command:
+    pcreate -s starter MyProject
+
+2) Start Sqlalchemy:
+    pcreate -s alchemy MyProject
+
+3) python setup.py develop
+
+4) pserve development.ini --reload
+    OR
+    gunicorn --paste development.ini -b :8080
+    OR
+    pserve configs/development.ini --reload (changed)
+
+################################################################################################
+apt-get install sox ffmpeg libcairo2 libcairo2-dev
+apt-get install texlive-full
+pip3 install manimlib
+pip3 install manimce
+
+sudo apt install libgirepository1.0-dev
+sudo service postgresql start
+
+celery -A celery_app  worker -l info -f logs/celery.log
+celery -A celery_app  beat -l info -f logs/celery.log
+
+git push https://shubhamjain31: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@github.com/shubhamjain31/pyramid_crud.git main
