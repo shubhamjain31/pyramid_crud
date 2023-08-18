@@ -145,8 +145,10 @@ def register(request):
         return Response(json_body={'status': 400, 'message': 'User already exists!', 'data': {}}, 
                                 status=400, content_type='applications/json')
 
+    ip_address = request.remote_addr or "127.0.0.1"
+
     new_user = models.User(username=username, password=password, name=name, email=email, phone=phone, is_active=True, 
-                    ip_address=request.remote_addr, role=role)
+                    ip_address=ip_address, role=role)
 
     request.dbsession.add(new_user)
 

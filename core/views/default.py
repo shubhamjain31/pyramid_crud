@@ -97,10 +97,12 @@ def addTrain(request, current_user, token):
     time_ = time_.split(":")
     str_time = f'{str(datetime.now().year)}-{str(datetime.now().month)}-{str(datetime.now().day)} {str(time_[0])}:{str(time_[1])}:00'
     train_time = datetime.strptime(str_time, "%Y-%m-%d %H:%M:%S")
+
+    ip_address = request.remote_addr or "127.0.0.1"
     
     new_train = Trains(train_number=train_number, train_name=train_name, source=source, time=train_time, destination=destination, price=price, 
                         seats_available=seats_available,
-                    ip_address=request.remote_addr)
+                    ip_address=ip_address)
     request.dbsession.add(new_train)
     
     return Response(json_body={'status': 200, 'message': 'Train Added!', 'data': train_schema.dump(new_train)}, 

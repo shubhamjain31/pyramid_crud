@@ -35,7 +35,8 @@ def token_required(wrapped):
         token = None
         # jwt is passed in the request header
         if 'Authorization' in request.headers:
-            token = request.headers['Authorization']
+            token = request.headers['Authorization'].split(" ")[-1]
+        
         # return 401 if token is not passed
         if not token:
             return Response(json_body={'status': 401, 'message': 'Token is missing !!!', 'data': {}}, 
